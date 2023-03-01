@@ -1,0 +1,9 @@
+.mail-list {
+  display: grid;
+  grid-area: content;
+}
+
+.mail-list ul {
+  list-style: none;
+  padding: 0;
+}

@@ -1,0 +1,8 @@
+.mail-preview {
+  display: flex;
+  gap: 2em;
+  align-items: center;
+}
+
+.mail-subject {
+

@@ -1,7 +1,7 @@
 import HomePage from './views/HomePage.js'
 import AboutUs from './views/AboutUs.js'
-import EmailPage from './views/EmailPage.js'
-import GoogleKeep from './views/GoogleKeep.js'
+import MailIndex from './apps/mail/pages/MailIndex.js'
+// import GoogleKeep from './views/GoogleKeep.js'
 
 const { createRouter, createWebHashHistory } = VueRouter
 
@@ -17,12 +17,12 @@ const routerOptions = {
       component: AboutUs,
     },
     {
-      path: '/Email',
-      component: EmailPage,
+      path: '/mail',
+      component: MailIndex,
     },
     {
-      path: '/GoogleKeep',
-      component: GoogleKeep,
+      // path: '/GoogleKeep',
+      // component: GoogleKeep,
     },
   ],
 }
