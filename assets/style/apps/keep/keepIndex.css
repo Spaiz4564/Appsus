@@ -13,9 +13,14 @@
 }
 
 .note:first-of-type {
+  margin: -0.9rem 0;
   break-inside: avoid-column;
   height: fit-content;
   background-color: #ecd9ff;
+}
+
+.close-tool-tip {
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .app-filter:focus-within :is(.some-content, .some-title) {
@@ -27,27 +32,46 @@
 }
 
 .take-a-note {
+  padding: 2px;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
+    0 2px 6px 2px rgba(60, 64, 67, 0.149);
+  border-radius: 8px;
   text-align: center;
-  border: 1px solid gray;
-  width: 40%;
+  width: 600px;
   display: flex;
+  margin: 43px;
   flex-direction: column;
 }
 
-.search-note,
-.take-a-note {
-  margin: 20px;
+.take-a-note input {
+  outline: none;
+  border: 0;
 }
 
-.take-a-note input {
-  border: 0;
+.tool-tip-btns {
+  padding-right: 25px;
+  align-items: center;
+  display: flex;
+  color: white;
+  justify-content: space-between;
 }
 
 .notes-list {
   list-style-type: none;
 }
 
+.tool-tip-btns button {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
 .note {
+  border-radius: 15px;
+  transition: all 0.3s;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -55,6 +79,7 @@
 }
 
 .note-img-container {
+  transition: all 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,16 +87,54 @@
 
 .note-img-container img {
   width: 100%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
 
-.note-preview-tools {
+.preview-tools {
+  position: relative;
+  padding: 10px;
+  transition: all 0.3s;
+  opacity: 0;
   display: flex;
-  gap: 5px;
+  align-items: center;
+  /* gap: 10px; */
+}
+
+.preview-tools > * {
+  cursor: pointer;
+}
+
+.opacity {
+  opacity: 1;
+}
+
+.note-preview-section {
+  border-radius: 15px;
+}
+
+.color input {
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+}
+
+.color i {
+  z-index: 1;
+  position: absolute;
+  left: 50px;
+  bottom: 20px;
+}
+
+.noOpacity {
+  opacity: 0;
 }
 
 .note-preview-container {
+  transition: all 0.3s;
   padding: 15px;
   display: flex;
   flex-direction: column;

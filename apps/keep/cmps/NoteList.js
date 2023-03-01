@@ -9,7 +9,7 @@ export default {
             <ul class="notes-list">
                 <li class="note" v-for="note in notes" :key="note.id">
                     
-                    <notePreview :note="note" />
+                    <notePreview    :note="note" />
             
                 </li>
             </ul>

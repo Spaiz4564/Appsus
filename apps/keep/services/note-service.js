@@ -38,7 +38,7 @@ function _createNotes() {
         type: 'NoteTxt',
         isPinned: true,
         style: {
-          backgroundColor: '#00d',
+          backgroundColor: '#ecd9ff;',
         },
         info: {
           txt: 'Fullstack Me Baby!',
@@ -54,13 +54,16 @@ function _createNotes() {
           txt: 'Wow ahi',
         },
         style: {
-          backgroundColor: '#00d',
+          backgroundColor: '#ecd9ff;',
         },
       },
       {
         id: 'n103',
         type: 'NoteTodos',
         isPinned: false,
+        style: {
+          backgroundColor: '#ecd9ff;',
+        },
         info: {
           txt: 'This is a note',
           title: 'Get my stuff together',
@@ -74,6 +77,9 @@ function _createNotes() {
         id: 'n103',
         type: 'NoteTodos',
         isPinned: false,
+        style: {
+          backgroundColor: '#ecd9ff;',
+        },
         info: {
           txt: 'This is a note',
           title: 'Finish sprint 3',
