@@ -15,7 +15,10 @@ function query(entityType, delay = 500) {
 function get(entityType, entityId) {
   return query(entityType).then((entities) => {
     const entity = entities.find((entity) => entity.id === entityId)
-    if (!entity) throw new Error(`Unknown Entity ${entityId}`)
+    if (!entity)
+      throw new Error(
+        `Get failed, cannot find entity with id: ${entityId} in: ${entityType}`
+      )
     return entity
   })
 }
