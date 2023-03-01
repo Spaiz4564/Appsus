@@ -31,8 +31,10 @@
 }
 
 /* CSS */
-.welcome-btns button {
-  appearance: button;
+.welcome-btns .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   backface-visibility: hidden;
   background-color: #405cf5;
   border-radius: 6px;
@@ -52,7 +54,6 @@
   overflow: hidden;
   padding: 0 25px;
   position: relative;
-  text-align: center;
   text-transform: none;
   transform: translateZ(0);
   transition: all 0.2s, box-shadow 0.08s ease-in;
@@ -62,11 +63,11 @@
   width: 30%;
 }
 
-.welcome-btns button:disabled {
+.welcome-btns .btn:disabled {
   cursor: default;
 }
 
-.welcome-btns button:focus {
+.welcome-btns .btn:focus {
   box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
     rgba(50, 50, 93, 0.2) 0 6px 15px 0, rgba(0, 0, 0, 0.1) 0 2px 2px 0,
     rgba(50, 151, 211, 0.3) 0 0 0 4px;
