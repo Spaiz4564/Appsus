@@ -1,6 +1,8 @@
 import HomePage from './views/HomePage.js'
 import AboutUs from './views/AboutUs.js'
 import MailIndex from './apps/mail/pages/MailIndex.js'
+import MailDetails from './apps/mail/pages/MailDetails.js'
+import EmailTrash from './apps/mail/cmps/EmailTrash.js'
 // import GoogleKeep from './views/GoogleKeep.js'
 
 const { createRouter, createWebHashHistory } = VueRouter
@@ -19,6 +21,14 @@ const routerOptions = {
     {
       path: '/mail',
       component: MailIndex,
+    },
+    {
+      path: '/mail/:mailId',
+      component: MailDetails,
+    },
+    {
+      path: '/mail/trash',
+      component: EmailTrash,
     },
     {
       // path: '/GoogleKeep',
