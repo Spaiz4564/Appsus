@@ -7,11 +7,8 @@ export default {
         <section class="mail-list">
             <ul>
                 <li v-for="mail in mails" :key="mail.id">
-                
                     <MailPreview :mail="mail" @selected="selectMail"  @click="updateMail(mail.id)"/>
-                    
                     <div>
-                
                     </div>
                 </li>
             </ul>
@@ -24,6 +21,7 @@ export default {
       mail: null,
     }
   },
+
   methods: {
     selectMail(mailId) {
       console.log('mailId', mailId)
