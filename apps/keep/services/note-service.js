@@ -3,14 +3,15 @@ import { storageService } from '../../../services/async-storage.service.js'
 
 const note_KEY = 'noteDB'
 
-_createNotes()
-
 export const noteService = {
+  saveNote,
+  createNewNote,
   query,
   get,
   save,
   remove,
 }
+_createNotes()
 
 function get(noteId) {
   return storageService.get(note_KEY, noteId)
@@ -28,6 +29,28 @@ function save(note) {
   }
 }
 
+function createNewNote() {
+  return {
+    id: utilService.makeId(4),
+    createdAt: 1112222,
+    type: 'NoteTxt',
+    isPinned: false,
+    style: {
+      backgroundColor: utilService.getColor(),
+    },
+    info: {
+      title: '',
+      txt: '',
+    },
+  }
+}
+
+function saveNote(note) {
+  return storageService.post(note_KEY, note).then(note => {
+    return note
+  })
+}
+
 function _createNotes() {
   let notes = utilService.loadFromStorage(note_KEY)
   if (!notes || !notes.length) {
@@ -38,9 +61,10 @@ function _createNotes() {
         type: 'NoteTxt',
         isPinned: true,
         style: {
-          backgroundColor: '#ecd9ff;',
+          backgroundColor: utilService.getColor(),
         },
         info: {
+          title: 'Note title',
           txt: 'Fullstack Me Baby!',
         },
       },
@@ -54,7 +78,7 @@ function _createNotes() {
           txt: 'Wow ahi',
         },
         style: {
-          backgroundColor: '#ecd9ff;',
+          backgroundColor: utilService.getColor(),
         },
       },
       {
@@ -62,7 +86,7 @@ function _createNotes() {
         type: 'NoteTodos',
         isPinned: false,
         style: {
-          backgroundColor: '#ecd9ff;',
+          backgroundColor: utilService.getColor(),
         },
         info: {
           txt: 'This is a note',
@@ -78,7 +102,7 @@ function _createNotes() {
         type: 'NoteTodos',
         isPinned: false,
         style: {
-          backgroundColor: '#ecd9ff;',
+          backgroundColor: utilService.getColor(),
         },
         info: {
           txt: 'This is a note',

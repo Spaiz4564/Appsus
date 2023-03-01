@@ -9,14 +9,14 @@
   /* column-fill: balance; */
   break-inside: avoid-column;
   height: fit-content;
-  background-color: #ecd9ff;
+  background-color: rgb(236, 217, 255);
 }
 
 .note:first-of-type {
   margin: -0.9rem 0;
   break-inside: avoid-column;
   height: fit-content;
-  background-color: #ecd9ff;
+  background-color: rgb(236, 217, 255);
 }
 
 .close-tool-tip {
@@ -49,6 +49,7 @@
 }
 
 .tool-tip-btns {
+  transition: all 0.3s;
   padding-right: 25px;
   align-items: center;
   display: flex;
@@ -71,11 +72,15 @@
 
 .note {
   border-radius: 15px;
-  transition: all 0.3s;
   display: flex;
   flex-direction: column;
   gap: 5px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+}
+
+.note:hover {
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
+    0 1px 3px 1px rgba(60, 64, 67, 0.149);
 }
 
 .note-img-container {
@@ -113,6 +118,7 @@
 
 .note-preview-section {
   border-radius: 15px;
+  color: black;
 }
 
 .color input {
@@ -134,9 +140,10 @@
 }
 
 .note-preview-container {
-  transition: all 0.3s;
   padding: 15px;
+  transition: all 0.3s;
   display: flex;
+  gap: 20px;
   flex-direction: column;
   align-items: center;
 }

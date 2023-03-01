@@ -3,16 +3,15 @@ import { svgService } from './../../../services/svg-service.js'
 export default {
   props: ['note'],
   template: `
+  <RouterLink to="/noteIndex/Details'">
         <section class="note-preview-section"  :style="bgColor"   @mouseout="showTools = false" @mouseover="showTools = true">
         <div class="note-img-container">
      
-     <img :src="imgSrc" alt="" />
       </div>
       <div   class="note-preview-container">
-        <h1></h1>
-      <h3>{{ note.info.txt }}</h3>
-      <h3>{{ note.id }}</h3>
-      <h3>{{ note.type}}</h3>
+        <h2>{{ note.info.title }}</h2>
+      <h4>{{ note.info.txt }}</h4>
+    
       </div>
       <div :class="opacity">
       <div className="icon" v-html="getSvg('trash')"></div>
@@ -21,11 +20,12 @@ export default {
       <i class="fa-solid fa-palette"></i>
       </div>
       
-     
-    
       </div>
 
+    
+
         </section>
+        </RouterLink>
        
     `,
 

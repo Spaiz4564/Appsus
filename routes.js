@@ -2,6 +2,7 @@ import HomePage from './views/HomePage.js'
 import AboutUs from './views/AboutUs.js'
 import MailIndex from './apps/mail/pages/MailIndex.js'
 import NoteIndex from './apps/keep/pages/NoteIndex.js'
+import NoteDetails from './apps/keep/pages/NoteDetails.js'
 import MailDetails from './apps/mail/pages/MailDetails.js'
 import EmailTrash from './apps/mail/cmps/EmailTrash.js'
 // import GoogleKeep from './views/GoogleKeep.js'
@@ -26,6 +27,12 @@ const routerOptions = {
     {
       path: '/NoteIndex',
       component: NoteIndex,
+      children: [
+        {
+          path: 'Details',
+          component: NoteDetails,
+        },
+      ],
     },
 
     {
@@ -36,10 +43,6 @@ const routerOptions = {
     {
       path: '/mail/trash',
       component: EmailTrash,
-    },
-    {
-      // path: '/GoogleKeep',
-      // component: GoogleKeep,
     },
   ],
 }
