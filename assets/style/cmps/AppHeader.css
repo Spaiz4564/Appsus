@@ -1,10 +1,14 @@
 .app-header {
-  background-color: var(--clr5);
-  color: var(--secondary-clr1);
-  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+
+  padding: 1em 3em;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-@media(max-width: 720px) {
+@media (max-width: 720px) {
   .app-header {
     background-color: var(--clr3);
     color: var(--secondary-clr2);
