@@ -2,8 +2,44 @@
 
 .mail-index {
   display: grid;
-  grid-template-columns: 100px 1fr;
-  /* grid-template-rows: 100px 1fr; */
-  /* grid-template-areas: */
-  /* ' */
+  border: 1px solid #ccc;
+  /* height: 100vh; */
+  grid-template-columns: 200px 1fr 1fr;
+  grid-template-rows: 0.3fr 1.5fr 1fr;
+  grid-template-areas:
+    'nav-bar search search'
+    'nav-bar content content'
+    'nav-bar content content';
+}
+
+.email-filter {
+  border: 1px solid #ccc;
+  grid-area: search;
+}
+
+.mail-folders {
+  /* grid-area: nav-bar; */
+  border: 1px solid #ccc;
+  grid-area: 2 / 1 / 4 / 2;
+}
+
+.mail-folders ul {
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0.5em;
+}
+
+.mail-folders ul li {
+  cursor: pointer;
+  padding: 0.5em;
+  margin: 0.5em;
+}
+
+.mail-folders span {
+  margin-left: 10px;
+}
+.mail-folders ul li:hover {
+  background-color: #ccc;
 }
