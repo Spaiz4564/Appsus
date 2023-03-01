@@ -46,3 +46,7 @@ button {
 .debug * {
   outline: 1px solid gold;
 }
+
+i {
+  display: inline-block;
+}

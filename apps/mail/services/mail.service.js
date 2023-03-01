@@ -60,12 +60,12 @@ function getEmptyMail(from) {
   }
 }
 
-function _createMail(from) {
+function _createMail(from, sentAt) {
   const mail = getEmptyMail(from)
   mail.id = utilService.makeId()
-  mail.subject = utilService.makeLorem(10)
+  mail.subject = utilService.makeLorem(5)
   mail.body = utilService.makeLorem(100)
-  mail.sentAt = Date.now()
+  mail.sentAt = sentAt
   mail.from = from
   mail.isTrash = false
   mail.to = 'user@appsus.com'
@@ -77,9 +77,29 @@ function _createMails() {
   if (!mails || !mails.length) {
     mails = []
     console.log('mails', mails)
-    mails.push(_createMail('momo@momo.com'))
-    mails.push(_createMail('guyShilon@apsus.com'))
-    mails.push(_createMail('ylcN@apsus.com'))
+    //today date
+    const today = new Date()
+    //yesterday date
+    const yesterday = new Date(today)
+    yesterday.setDate(yesterday.getDate() - 1)
+    //last week date
+    const lastWeek = new Date(today)
+    lastWeek.setDate(lastWeek.getDate() - 7)
+    //last month date
+    const lastMonth = new Date(today)
+    lastMonth.setDate(lastMonth.getDate() - 30)
+
+    //last year date
+    const lastYear = new Date(today)
+    lastYear.setDate(lastYear.getDate() - 365)
+
+    mails.push(_createMail('Guy@appsus.com', today))
+    mails.push(_createMail('Lior@appsus.com', today))
+    mails.push(_createMail('Ilan@appsus.com', today))
+    mails.push(_createMail('TalTheBest@appsus.com', lastWeek))
+    mails.push(_createMail('Bar@appsus.com', lastMonth))
+    mails.push(_createMail('Dor@appsus.com', lastYear))
+
     utilService.saveToStorage(MAIL_KEY, mails)
   }
 }

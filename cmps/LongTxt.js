@@ -2,8 +2,8 @@ export default {
   props: ['txt', 'length'],
   template: `
     <section class="long-txt">
-        <p v-if="!isLong">{{displayTxt}}</p>
-        <p v-else>{{txt}}</p>
+        <h4 v-if="!isLong">{{displayTxt}}</h4>
+        <h4 v-else>{{txt}}</h4>
     </section>
     `,
   data() {
