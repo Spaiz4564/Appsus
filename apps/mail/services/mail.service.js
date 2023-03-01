@@ -6,20 +6,30 @@ const TRASH_KEY = 'trashDB'
 
 export const mailService = {
   query,
-  // getMailById,
+  queryTrash,
   remove,
   get,
   save,
   getEmptyMail,
-  removeToTrash,
   updateIsRead,
+  removeToTrash,
 }
 
-const gMails = _createMails()
-console.log('gMails', gMails)
+_createMails()
 
-function query() {
-  return storageService.query(MAIL_KEY)
+function query(criteria = {}) {
+  return storageService.query(MAIL_KEY).then((mails) => {
+    if (criteria.isRead) {
+      mails = mails.filter((mail) => mail.isRead === criteria.isRead)
+    }
+    if (criteria.subject) {
+      mails = mails.filter((mail) => mail.subject.includes(criteria.subject))
+    }
+    if (criteria.isTrash) {
+      mails = mails.filter((mail) => mail.isTrash === criteria.isTrash)
+    }
+    return mails
+  })
 }
 
 function save(mail) {
@@ -48,10 +58,6 @@ function getEmptyMail(from) {
     isStared: false,
     labels: [],
   }
-}
-const loggedInUser = {
-  email: 'user@appsus.com',
-  fullname: 'User Appsus',
 }
 
 function _createMail(from) {
@@ -83,17 +89,11 @@ function removeToTrash(mailId) {
   mail.removedAt = Date.now()
   mail.id = mailId
   mail.isTrash = true
-  utilService.saveToStorage(TRASH_KEY, mail)
-  remove(mailId)
+  save(mail)
 }
 
 function get(mailId) {
-  return storageService.get(MAIL_KEY, mailId).then(setTrashMails)
-}
-
-function setTrashMails(mail) {
-  mail.isTrash = true
-  return mail
+  return storageService.get(MAIL_KEY, mailId)
 }
 
 function updateIsRead(mailId) {
@@ -107,4 +107,8 @@ function getMailById(mailId) {
   const mails = utilService.loadFromStorage(MAIL_KEY)
   const mail = mails.find((mail) => mail.id === mailId)
   return mail
+}
+
+function queryTrash() {
+  return storageService.query(TRASH_KEY)
 }
