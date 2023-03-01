@@ -3,22 +3,19 @@ import { noteService } from '../../keep/services/note-service.js'
 
 export default {
   template: `
-<div class="icons-container">
-    <div class="icon1"></div>
-    <div class="icon2"></div>
-  </div>
   <section class="app-filter">
-    <input class="search-note" type="text" placeholder="search"/>
-    <div className="take-a-note">
+    <form @submit.prevent="wow" className="take-a-note">
     <input type="text" placeholder="Title" />
-    <input type="text" placeholder="Take a note" />
-    <div class="some-content">
-      <button data-title="ToolTip content">ok</button>
-      <button >ok2</button>
-      <button>ok3</button>
+    <input type="text" placeholder="Take a note..." />
+    <div class="tool-tip-btns">
+    <div>
+    <span >ok2</span>
+    <span data-title="ToolTip content">ok</span>
+    <span>ok3</span>
     </div>
-   
+    <button class="close-tool-tip">Close</button>
     </div>
+    </form>
   </section>
 
  
@@ -37,7 +34,11 @@ export default {
     }
   },
 
-  methods: {},
+  methods: {
+    wow() {
+      console.log('hello')
+    },
+  },
 
   components: {
     NoteList,
