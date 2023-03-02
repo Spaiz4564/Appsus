@@ -23,6 +23,13 @@ const routerOptions = {
     {
       path: '/mail',
       component: MailIndex,
+      children: [
+        {
+          path: 'trash',
+          name: 'TrashEmail',
+          component: EmailTrash,
+        },
+      ],
     },
     {
       path: '/NoteIndex',
@@ -38,11 +45,6 @@ const routerOptions = {
     {
       path: '/mail/:mailId',
       component: MailDetails,
-    },
-
-    {
-      path: '/mail/trash',
-      component: EmailTrash,
     },
   ],
 }

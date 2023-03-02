@@ -7,11 +7,16 @@ export default {
         <section class="mail-list">
             <ul>
                 <li v-for="mail in mails" :key="mail.id">
-                    <MailPreview :mail="mail" @selected="selectMail"  @click="updateMail(mail.id)"/>
-                    <div>
-                    </div>
-                </li>
-            </ul>
+                  <RouterView />
+                <RouterLink :to="'/mail/' + mail.id">
+                  <RouterLink :to = "'trash/' + mail.id">
+                    <MailPreview :mail="mail"
+                    @selected="selectMail(mail.id)" 
+                    @click="updateMail(mail.id)"
+                    @starred="isStar(mail.id)"                 
+                    />
+                  </li>
+                </ul>
         </section>
     `,
 
@@ -22,15 +27,29 @@ export default {
     }
   },
 
+  created() {
+    const mailId = this.$route.params.mailId
+    if (mailId) {
+      this.selectMail(mailId)
+    }
+  },
+  computed: {
+    mailId() {
+      return this.$route.params.mailId
+    },
+  },
+
   methods: {
     selectMail(mailId) {
-      console.log('mailId', mailId)
       this.selectedMailId = mailId
-      this.$router.push(`/mail/${mailId}`)
+      console.log('selectedMailId', mailId)
+    },
+
+    isStar(mailId) {
+      mailService.updateIsStar(mailId)
     },
     updateMail(mailId) {
       mailService.updateIsRead(mailId)
-      console.log('mailId', mailId)
     },
   },
 

@@ -3,7 +3,7 @@ export default {
         <section class="mail-folders">
             <ul>
               <li v-for="folder in folders" :key="folder.id" @click="folderSelected(folder.id)">
-                  <RouterLink :to="folder.path">
+                  <RouterLink :to="'/mail/' + folder.name">
                     <i v-if="folder.name === 'Inbox'" class="fa-solid fa-inbox"></i>
                     <i v-else-if="folder.name === 'Sent'" class="fa-solid fa-paper-plane"></i>
                     <i v-else-if="folder.name === 'Trash'" class="fa-solid fa-trash"></i>
@@ -18,17 +18,32 @@ export default {
   data() {
     return {
       folders: [
-        { id: 1, name: 'Inbox', path: '/mail' },
-        { id: 2, name: 'Sent', path: '/mail/sent' },
-        { id: 3, name: 'Trash', path: '/mail/trash' },
-        { id: 4, name: 'Draft', path: '/mail/draft' },
-        { id: 5, name: 'Starred', path: '/mail/starred' },
+        {
+          id: 1,
+          name: 'Inbox',
+        },
+        {
+          id: 2,
+          name: 'Sent',
+        },
+        {
+          id: 3,
+          name: 'Trash',
+        },
+        {
+          id: 4,
+          name: 'Draft',
+        },
+        {
+          id: 5,
+          name: 'Starred',
+        },
       ],
     }
   },
   methods: {
     folderSelected(folderId) {
-      this.$emit('selected', folderId)
+      this.$emit('folderSelected', folderId)
     },
   },
 }
