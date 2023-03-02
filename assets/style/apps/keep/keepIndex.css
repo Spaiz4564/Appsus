@@ -9,14 +9,41 @@
   /* column-fill: balance; */
   break-inside: avoid-column;
   height: fit-content;
-  background-color: rgb(236, 217, 255);
 }
 
 .note:first-of-type {
-  margin: -0.9rem 0;
   break-inside: avoid-column;
   height: fit-content;
-  background-color: rgb(236, 217, 255);
+}
+
+.app-filter textarea {
+  padding: 15px;
+  outline: 0;
+  border: 0;
+  height: 2.7rem;
+}
+
+.app-filter input::placeholder,
+.app-filter textarea::placeholder {
+  font-family: sans-serif;
+  font-weight: 600;
+}
+
+.app-filter input::placeholder {
+  font-size: 16px;
+}
+
+.app-filter textarea::placeholder {
+  font-size: 13px;
+}
+
+.note {
+  transition: all 0.2s;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .close-tool-tip {
@@ -70,14 +97,6 @@
   outline: none;
 }
 
-.note {
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
-}
-
 .note:hover {
   box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
     0 1px 3px 1px rgba(60, 64, 67, 0.149);
@@ -117,7 +136,7 @@
 }
 
 .note-preview-section {
-  border-radius: 15px;
+  border-radius: 8px;
   color: black;
 }
 

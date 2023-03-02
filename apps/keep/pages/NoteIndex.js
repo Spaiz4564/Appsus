@@ -3,27 +3,29 @@ import { noteService } from '../../keep/services/note-service.js'
 
 export default {
   template: `
+
   <section class="app-filter">
-    <form @submit.prevent="onSaveNote" className="take-a-note">
+   
+    <div className="take-a-note">
     <input v-model="note.info.title" type="text" placeholder="Title" />
-    <input v-model="note.info.txt" type="text" placeholder="Take a note..." />
+    <textarea style="resize: none; overflow: hidden" v-model="note.info.txt" placeholder="Take a note..."  cols="30" rows="10"></textarea>
     <div class="tool-tip-btns">
     <div>
     <span >ok2</span>
     <span data-title="ToolTip content">ok</span>
     <span>ok3</span>
     </div>
-    <button class="close-tool-tip">Close</button>
+    <button @click="onSaveNote" class="close-tool-tip">Close</button>
     </div>
-    </form>
+    </div>
   </section>
 
- <div>
-    
-   </div>
-   
-   <NoteList :notes="notes" />
-
+  <section className="note-list">
+  <NoteList @set-note="settingsNote" :notes="notes" />
+<RouterView @unset="unSetNote"  v-if="selectedNote"  :note="selectedNote" />
+  </section>
+ 
+ 
 `,
 
   watch: {
@@ -47,17 +49,28 @@ export default {
 
   methods: {
     onSaveNote() {
+      if (!this.note.info.txt) return
       noteService.saveNote(this.note).then(note => {
         this.notes.unshift(note)
       })
     },
-  },
 
-  components: {
-    NoteList,
+    unSetNote() {
+      this.selectedNote = null
+      console.log('note is null')
+    },
+
+    settingsNote(note) {
+      this.selectedNote = note
+      console.log(note)
+    },
   },
 
   created() {
     noteService.query().then(notes => (this.notes = notes))
+  },
+
+  components: {
+    NoteList,
   },
 }

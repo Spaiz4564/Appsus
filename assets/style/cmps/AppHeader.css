@@ -4,7 +4,7 @@
   align-items: center;
   background-color: white;
 
-  padding: 1.3em 3em;
+  padding: 0.2em 3em;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
@@ -13,4 +13,10 @@
     background-color: var(--clr3);
     color: var(--secondary-clr2);
   }
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+  align-self: flex-end;
 }

@@ -1,18 +1,22 @@
 import { svgService } from './../../../services/svg-service.js'
+import NoteDetails from '../pages/NoteDetails.js'
 
 export default {
   props: ['note'],
   template: `
-  <RouterLink to="/noteIndex/Details'">
+   <!-- <RouterLink :to="'/NoteIndex/'+note.id"> -->
+   
         <section class="note-preview-section"  :style="bgColor"   @mouseout="showTools = false" @mouseover="showTools = true">
         <div class="note-img-container">
      
       </div>
+      <RouterLink to="/noteIndex/Details">
       <div   class="note-preview-container">
         <h2>{{ note.info.title }}</h2>
       <h4>{{ note.info.txt }}</h4>
     
       </div>
+      </RouterLink>
       <div :class="opacity">
       <div className="icon" v-html="getSvg('trash')"></div>
       <div className="color">
@@ -25,7 +29,7 @@ export default {
     
 
         </section>
-        </RouterLink>
+      
        
     `,
 
@@ -60,6 +64,10 @@ export default {
 
   created() {
     console.log(this.note)
+  },
+
+  components: {
+    NoteDetails,
   },
 }
 
