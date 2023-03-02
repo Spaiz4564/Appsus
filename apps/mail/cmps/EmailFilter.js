@@ -12,7 +12,7 @@ export default {
             <div class="filter-subject">
               <form @submit.prevent="emitFilter">
                 <i class="glass fa-solid fa-magnifying-glass"></i>
-                <input name=subject class="filter-txt" type="text" placeholder="Search emails" v-model="filterBy.subject" @input="emitFilter" /> 
+                <input name=subject class="filter-txt" type="text" placeholder="Search emails" v-model="filterBy.subject" @change="emitFilter" />
             </form>
             </div>
             </div>

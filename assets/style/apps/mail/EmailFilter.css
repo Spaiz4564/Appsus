@@ -17,8 +17,12 @@
   margin-left: 1em;
 }
 
-.filter-subject input {
+.filter-subject form {
   position: relative;
+}
+
+.filter-subject input {
+  padding-left: 27px;
   outline: none;
   border: 1px solid transparent;
   font-size: 1rem;
@@ -31,5 +35,5 @@
 .filter-subject i {
   position: absolute;
   display: flex;
-  top: 12.5%;
+  top: 27.5%;
 }

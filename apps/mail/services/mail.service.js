@@ -2,34 +2,65 @@ import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/async-storage.service.js'
 const MAIL_KEY = 'mailDB'
 
-const TRASH_KEY = 'trashDB'
-
 export const mailService = {
   query,
-  queryTrash,
   remove,
   get,
   save,
   getEmptyMail,
   updateIsRead,
   removeToTrash,
+  updateIsStar,
 }
 
 _createMails()
+const criteria = {
+  status: 'inbox/sent/trash/draft',
+  txt: 'puki', // no need to support complex text search
+  isRead: true, // (optional property, if missing: show all)
+  isStared: true, // (optional property, if missing: show all)
+  lables: ['important', 'romantic'], // has any of the labels
+}
 
 function query(criteria = {}) {
-  return storageService.query(MAIL_KEY).then((mails) => {
-    if (criteria.isRead) {
-      mails = mails.filter((mail) => mail.isRead === criteria.isRead)
+  const mails = utilService.loadFromStorage(MAIL_KEY)
+  if (!mails || !mails.length) return Promise.resolve([])
+  const { status, txt, isRead, isStared, labels } = criteria
+  let filteredMails = mails.filter((mail) => {
+    if (status === 'inbox') {
+      return !mail.isTrash && !mail.isDraft
+    } else if (status === 'sent') {
+      return mail.isSent
+    } else if (status === 'trash') {
+      return mail.isTrash
+    } else if (status === 'draft') {
+      return mail.isDraft
+    } else if (status === 'starred') {
+      return mail.isStared
     }
-    if (criteria.subject) {
-      mails = mails.filter((mail) => mail.subject.includes(criteria.subject))
-    }
-    if (criteria.isTrash) {
-      mails = mails.filter((mail) => mail.isTrash === criteria.isTrash)
-    }
-    return mails
+    return true
   })
+  if (txt) {
+    filteredMails = filteredMails.filter((mail) => {
+      return mail.subject.includes(txt) || mail.body.includes(txt)
+    })
+  }
+  if (isRead) {
+    filteredMails = filteredMails.filter((mail) => {
+      return mail.isRead
+    })
+  }
+  if (isStared) {
+    filteredMails = filteredMails.filter((mail) => {
+      return mail.isStared
+    })
+  }
+  if (labels) {
+    filteredMails = filteredMails.filter((mail) => {
+      return mail.labels.some((label) => labels.includes(label))
+    })
+  }
+  return Promise.resolve(filteredMails)
 }
 
 function save(mail) {
@@ -68,6 +99,8 @@ function _createMail(from, sentAt) {
   mail.sentAt = sentAt
   mail.from = from
   mail.isTrash = false
+  mail.isRead = false
+  mail.isStared = false
   mail.to = 'user@appsus.com'
   return mail
 }
@@ -113,6 +146,7 @@ function removeToTrash(mailId) {
 }
 
 function get(mailId) {
+  console.log('mailId', mailId)
   return storageService.get(MAIL_KEY, mailId)
 }
 
@@ -129,6 +163,9 @@ function getMailById(mailId) {
   return mail
 }
 
-function queryTrash() {
-  return storageService.query(TRASH_KEY)
+function updateIsStar(mailId) {
+  const currMail = getMailById(mailId)
+  console.log('currMail', currMail)
+  currMail.isStared = !currMail.isStared
+  save(currMail)
 }

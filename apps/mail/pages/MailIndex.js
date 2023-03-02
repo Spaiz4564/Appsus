@@ -8,11 +8,10 @@ import { utilService } from '../../../services/util.service.js'
 export default {
   template: `
         <section class="mail-index">
-            <EmailFilter @filtered="setFilter" />
-            <MailList :mails= "filteredMails" />
-            <EmailFolderList />
-
-
+          <EmailFilter @filtered="setFilter" />
+          <MailList :mails= "filteredMails" />
+          <EmailFolderList />  
+         
         </section>
     `,
   data() {
@@ -22,7 +21,9 @@ export default {
     }
   },
   created() {
-    mailService.query().then((mails) => (this.mails = mails))
+    mailService.query().then((mails) => {
+      this.mails = mails
+    })
   },
   methods: {
     setFilter(filterBy) {

@@ -3,18 +3,27 @@ import LongText from '../../../cmps/LongTxt.js'
 export default {
   props: ['mail'],
   template: `
-    <article class="mail-preview">
-      <i class=" star fa-solid fa-star" @click ="isStar"></i>
-        <h4 @click="mailSelected(mail.id)">{{mail.from}}</h4>
-        <h4 @click="mailSelected(mail.id)">{{mail.subject}}</h4>
-        <LongText :txt="mail.body"
-         :length="40"
-          @click="mailSelected(mail.id)"
-          class="mail-body"
-          ></LongText>
-        <h5 class="mail-date" @click="mailSelected(mail.id)">{{formatDate}}</h5>
+
+    <article class="mail-preview" @click="mailSelected(mail.id)">
+      <div class="mail-header">
+        <i v-if="mail.isStared" class="fas fa-star" @click.stop="isStar"></i>
+        <i v-else class="far fa-star" @click.stop="isStar"></i>
+        <h4 :class="read"@click="changeColor()">{{mail.from}}</h4>
+      </div>
+      
+      <div class="mail-content">
+        <h4 @click="changeColor()":class="read">{{mail.subject}}</h4>
+        <LongText :txt="mail.body" :length="40" class="mail-body">
+          </LongText>
+        </div>
+        <h5 class="mail-date">{{formatDate}}</h5>
     </article>
     `,
+  data() {
+    return {
+      read: '',
+    }
+  },
   components: {
     LongText,
   },
@@ -24,6 +33,10 @@ export default {
     },
     isStar() {
       this.$emit('starred', this.mail)
+    },
+    changeColor() {
+      this.read = 'read'
+      console.log('read', this.mail)
     },
   },
   computed: {
