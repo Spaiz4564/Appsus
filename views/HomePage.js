@@ -1,5 +1,8 @@
+import AppHeader from './../cmps/AppHeader.js'
+
 export default {
   template: `
+     <AppHeader/>
         <section class="home-page">
             <div class="welcome-container">
             <h1>Secure, smart, and easy to use our <br /> apps</h1>
@@ -16,4 +19,8 @@ IMAGE
            
         </section>
     `,
+
+  components: {
+    AppHeader,
+  },
 }

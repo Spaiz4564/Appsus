@@ -2,9 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: white;
-
-  padding: 0.2em 3em;
+  padding: 0.2em 1.5em;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
@@ -19,4 +17,8 @@ nav {
   display: flex;
   gap: 20px;
   align-self: flex-end;
+}
+
+.lower {
+  background: rgb(0 0 0 / 38%) !important;
 }

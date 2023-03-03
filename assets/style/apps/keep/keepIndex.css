@@ -17,6 +17,8 @@
 }
 
 .app-filter textarea {
+  background: transparent;
+  font-family: sans-serif;
   padding: 15px;
   outline: 0;
   border: 0;
@@ -27,6 +29,18 @@
 .app-filter textarea::placeholder {
   font-family: sans-serif;
   font-weight: 600;
+}
+
+.title-tag {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 4px -5px;
+  padding-right: 17px;
+}
+
+.title-tag input::placeholder {
+  font-weight: 200;
 }
 
 .app-filter input::placeholder {
@@ -43,7 +57,6 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .close-tool-tip {
@@ -56,45 +69,6 @@
 
 .some-title {
   display: block;
-}
-
-.take-a-note {
-  padding: 2px;
-  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
-    0 2px 6px 2px rgba(60, 64, 67, 0.149);
-  border-radius: 8px;
-  text-align: center;
-  width: 600px;
-  display: flex;
-  margin: 43px;
-  flex-direction: column;
-}
-
-.take-a-note input {
-  outline: none;
-  border: 0;
-}
-
-.tool-tip-btns {
-  transition: all 0.3s;
-  padding-right: 25px;
-  align-items: center;
-  display: flex;
-  color: white;
-  justify-content: space-between;
-}
-
-.notes-list {
-  list-style-type: none;
-}
-
-.tool-tip-btns button {
-  background-color: transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline: none;
 }
 
 .note:hover {

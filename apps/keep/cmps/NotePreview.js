@@ -1,32 +1,37 @@
 import { svgService } from './../../../services/svg-service.js'
 import NoteDetails from '../pages/NoteDetails.js'
+import { noteService } from '../services/note-service.js'
+import NoteText from './NoteText.js'
+import NoteTypeList from './NoteTypeList.js'
+import NoteTypeImg from './NoteTypeImg.js'
 
 export default {
   props: ['note'],
   template: `
-   <!-- <RouterLink :to="'/NoteIndex/'+note.id"> -->
    
         <section class="note-preview-section"  :style="bgColor"   @mouseout="showTools = false" @mouseover="showTools = true">
         <div class="note-img-container">
      
       </div>
-      <RouterLink to="/noteIndex/Details">
-      <div   class="note-preview-container">
-        <h2>{{ note.info.title }}</h2>
-      <h4>{{ note.info.txt }}</h4>
-    
+      <RouterLink :to="'/noteIndex/Details/'+note.id">
+      <div class="note-preview-container">
+
+      <h2>{{ note.info.title }}</h2>
+            <NoteText v-if="note.type === 'NoteTxt'" :note="note"/>
+            <NoteTypeList v-if="note.type === 'NoteTodos'"  :note="note"/>
+            <NoteTypeImg v-if="note.type === 'NoteImg'" :note="note" />
+
       </div>
       </RouterLink>
       <div :class="opacity">
-      <div className="icon" v-html="getSvg('trash')"></div>
+      <div @click="onRemoveNote(note.id)"  className="icon" v-html="getSvg('trash')"></div>
       <div className="color">
-      <input v-model="note.style.backgroundColor" type="color" id="color" />
+      <input @change="setBg" v-model="note.style.backgroundColor" type="color" id="color" />
       <i class="fa-solid fa-palette"></i>
+    
       </div>
       
       </div>
-
-    
 
         </section>
       
@@ -42,6 +47,16 @@ export default {
   methods: {
     getSvg(iconName) {
       return svgService.getSvg(iconName)
+    },
+
+    onRemoveNote(noteId) {
+      console.log('removing note')
+      this.$emit('removeNote', noteId)
+    },
+
+    setBg() {
+      noteService.save(this.note)
+      console.log('bg set')
     },
   },
 
@@ -63,18 +78,13 @@ export default {
   },
 
   created() {
-    console.log(this.note)
+    // console.log(this.note)
   },
 
   components: {
+    NoteTypeImg,
+    NoteTypeList,
+    NoteText,
     NoteDetails,
   },
 }
-
-/* <p contenteditable="true">
-****YOU CAN EDIT THIS CONTENT***
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-asperiores expedita at voluptatem eligendi ipsum sit, tempora modi
-nisi eum quae id cumque et, quibusdam, excepturi porro mollitia.
-Adipisci, exercitationem?
-</p> */

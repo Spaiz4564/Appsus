@@ -26,3 +26,6 @@
 
 @import 'apps/keep/keepIndex.css';
 @import 'apps/keep/NoteDetails.css';
+@import 'apps/keep/KeepHeader.css';
+@import 'apps/keep/PinnedNotes.css';
+@import 'apps/keep/TakeANote.css';

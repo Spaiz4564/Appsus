@@ -17,6 +17,23 @@
   gap: 50px;
 }
 
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+
+.note-details textarea {
+  font-family: sans-serif;
+  padding: 15px;
+  outline: 0;
+  border: 0;
+  /* height: 2.7rem; */
+  font-size: 16px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
 .active {
   background-color: #202124;
 }
@@ -29,4 +46,12 @@
 .note-tools {
   display: flex;
   justify-content: space-between;
+}
+
+.typeList {
+  text-align: left;
+}
+
+.note-preview-container ul {
+  width: 90%;
 }

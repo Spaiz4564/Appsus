@@ -32,6 +32,10 @@ a {
   color: unset;
 }
 
+i {
+  cursor: pointer;
+}
+
 /* Dont stretch my Media */
 img,
 embed,

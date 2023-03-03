@@ -4,6 +4,7 @@ import { storageService } from '../../../services/async-storage.service.js'
 const note_KEY = 'noteDB'
 
 export const noteService = {
+  createNoteList,
   saveNote,
   createNewNote,
   query,
@@ -41,6 +42,22 @@ function createNewNote() {
     info: {
       title: '',
       txt: '',
+    },
+  }
+}
+
+function createNoteList() {
+  return {
+    id: '',
+    type: 'NoteTodos',
+    isPinned: false,
+    style: {
+      backgroundColor: utilService.getColor(),
+    },
+    info: {
+      txt: '',
+      title: '',
+      todos: [],
     },
   }
 }
@@ -98,7 +115,7 @@ function _createNotes() {
         },
       },
       {
-        id: 'n103',
+        id: 'n104',
         type: 'NoteTodos',
         isPinned: false,
         style: {

@@ -38,7 +38,7 @@ const routerOptions = {
       component: NoteIndex,
       children: [
         {
-          path: 'Details',
+          path: 'Details/:noteId',
           component: NoteDetails,
         },
       ],

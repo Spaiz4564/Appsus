@@ -4,9 +4,11 @@ import MailList from '../cmps/MailList.js'
 import EmailFolderList from '../cmps/EmailFolderList.js'
 import EmailFilter from '../cmps/EmailFilter.js'
 import { utilService } from '../../../services/util.service.js'
+import AppHeader from '../../../cmps/AppHeader.js'
 
 export default {
   template: `
+     <AppHeader />
         <section class="mail-index">
           <EmailFilter @filtered="setFilter" />
           <MailList :mails= "filteredMails" />
@@ -21,7 +23,7 @@ export default {
     }
   },
   created() {
-    mailService.query().then((mails) => {
+    mailService.query().then(mails => {
       this.mails = mails
     })
   },
@@ -38,10 +40,10 @@ export default {
         const isRead = this.filterBy.isRead === 'true'
         const isAll = this.filterBy.isRead === 'All'
         if (isAll) return this.mails
-        return this.mails.filter((mail) => mail.isRead === isRead)
+        return this.mails.filter(mail => mail.isRead === isRead)
       }
       if (this.filterBy.subject) {
-        return this.mails.filter((mail) =>
+        return this.mails.filter(mail =>
           mail.subject.includes(this.filterBy.subject)
         )
       }
@@ -50,12 +52,13 @@ export default {
         const isAll = this.filterBy.isTrash === 'All'
         if (isAll) return this.mails
         console.log('isTrash', isTrash)
-        return this.mails.filter((mail) => mail.isTrash === isTrash)
+        return this.mails.filter(mail => mail.isTrash === isTrash)
       }
     },
   },
 
   components: {
+    AppHeader,
     MailList,
     EmailFolderList,
     EmailFilter,
