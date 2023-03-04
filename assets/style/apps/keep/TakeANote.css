@@ -31,12 +31,24 @@
 
 .note-type {
   display: flex;
-  gap: 25px;
+  gap: 10px;
 }
 
-.note-type i {
+.note-type .icon {
+  font-size: 20px;
   transition: all 0.3s;
+}
+
+.icon {
+  cursor: pointer;
   opacity: 0.7;
+}
+
+.icon svg {
+  opacity: 0.7;
+  display: inline-block;
+  height: 25px;
+  width: 30px;
 }
 
 .note-type i:hover {
@@ -50,4 +62,13 @@
   cursor: pointer;
   overflow: hidden;
   outline: none;
+}
+
+.list-btn:visited {
+  color: pink;
+}
+
+.pressed {
+  color: black;
+  opacity: 1 !important;
 }

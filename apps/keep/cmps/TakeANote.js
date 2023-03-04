@@ -13,14 +13,15 @@ export default {
            <i @click="pinNote" class="fa-solid fa-thumbtack"></i>
        </div>
 
-   <textarea spellcheck="false" style="resize: none; overflow: hidden" v-model="note.info.txt" :placeholder="text"></textarea>
+   <textarea  v-if="note.type !== 'NoteImg'" spellcheck="false" style="resize: none; overflow: hidden" v-model="note.info.txt" :placeholder="text"></textarea>
+   <div class="upload-an-img" v-if="note.type === 'NoteImg'" >Upload an image... <input class="img-input" v-if="this.note.type === 'NoteImg'" type="file" accept="image/jpeg" @change=uploadImage></div>
 
    <div class="tool-tip-btns">
 
    <div class="note-type">
-     <i @click="onChangeNoteType('text')" data-title="Text" class="fa-solid fa-font"></i>
-   <i @click="onChangeNoteType('list')" data-title="List" class="fa-solid fa-list"></i>
-   <i data-title="Image" class="fa-regular fa-file-image"></i>
+     <div class="icon" v-html="getSvg('textFormat')" ref="text"  @click="onChangeNoteType('text'); mark('text')" data-title="Text"></div>
+   <div class="icon" v-html="getSvg('listDisplay')" ref="list" @click="onChangeNoteType('list'); mark('list')" data-title="List"></div>
+   <div class="icon" v-html="getSvg('img')" ref="img" @click="onChangeNoteType('img'); mark('list'); mark('img')" data-title="Image"></div>
    </div>
 
    <button @click="onSaveNote" class="close-tool-tip">Close</button>
@@ -33,9 +34,31 @@ export default {
     
     `,
 
+  data() {
+    return {
+      previewImage: null,
+    }
+  },
+
   methods: {
+    uploadImage(e) {
+      const image = e.target.files[0]
+      const reader = new FileReader()
+      reader.readAsDataURL(image)
+      reader.onload = e => {
+        this.previewImage = e.target.result
+        this.note.info.url = this.previewImage
+      }
+    },
+
     onSaveNote() {
-      if (!this.note.info.txt) return
+      if (!this.note.info.txt && this.note.type !== 'NoteImg') return
+      if (this.note.type === 'NoteTodos') {
+        this.note.info.txt
+          .split(',')
+          .forEach(n => this.note.info.todos.push({ txt: n, isDone: false }))
+      }
+      console.log(this.notes)
       noteService.saveNote(this.note).then(note => {
         this.notes.unshift(note)
       })
@@ -51,6 +74,27 @@ export default {
 
     onChangeNoteType(type) {
       this.$emit('changeNoteType', type)
+    },
+
+    mark(type) {
+      if (type === 'list') {
+        this.removeMarks()
+        this.$refs.list.classList.add('pressed')
+      } else if (type === 'text') {
+        this.removeMarks()
+        this.$refs.text.classList.add('pressed')
+      } else {
+        this.removeMarks()
+        this.$refs.img.classList.add('pressed')
+      }
+    },
+
+    removeMarks() {
+      document
+        .querySelectorAll('.pressed')
+        .forEach(i =>
+          i.classList.contains('pressed') ? i.classList.remove('pressed') : ''
+        )
     },
   },
 

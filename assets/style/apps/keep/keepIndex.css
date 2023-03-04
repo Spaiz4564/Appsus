@@ -1,11 +1,12 @@
 .container {
-  column-count: 5;
-  column-gap: 1rem;
-  padding: 100px;
+  position: relative;
+  column-count: 7;
+  column-gap: 0.5rem;
+  padding: 50px;
 }
 
 .note:not(:first-of-type) {
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   /* column-fill: balance; */
   break-inside: avoid-column;
   height: fit-content;
@@ -57,6 +58,10 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.no-padding {
+  padding: 0 !important;
 }
 
 .close-tool-tip {
@@ -114,6 +119,15 @@
   color: black;
 }
 
+.pinned-span {
+  color: #5f6368;
+  letter-spacing: 0.07272727em;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1rem;
+}
+
 .color input {
   cursor: pointer;
   position: relative;
@@ -121,11 +135,20 @@
   opacity: 0;
 }
 
-.color i {
+.keep-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.keep-app {
+  display: flex;
+}
+
+.color .icon {
   z-index: 1;
   position: absolute;
-  left: 50px;
-  bottom: 20px;
+  left: 45px;
+  bottom: 10px;
 }
 
 .noOpacity {
@@ -138,7 +161,35 @@
   display: flex;
   gap: 20px;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+}
+
+.note-preview-container h3 {
+  font-size: 16px;
+  font-weight: 200;
+}
+
+.note-preview-container h4 {
+  font-size: 15px;
+  font-weight: bolder;
+}
+
+.others {
+  position: absolute;
+  top: 25px;
+  left: 70px;
+  color: #5f6368;
+  letter-spacing: 0.07272727em;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1rem;
+}
+
+.note-preview-container h2 {
+  padding: 15px;
+  font-size: 15px;
+  font-weight: bolder;
 }
 
 .app-filter {
@@ -155,11 +206,6 @@
 .custom-file-input:hover::before {
   border-color: black;
 }
-
-/* .some-content,
-.some-title {
-  display: none;
-} */
 
 [data-title] {
   position: relative;

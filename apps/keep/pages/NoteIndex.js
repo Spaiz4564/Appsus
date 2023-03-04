@@ -2,20 +2,41 @@ import NoteList from '../cmps/NoteList.js'
 import { noteService } from '../../keep/services/note-service.js'
 import NoteHeader from '../cmps/NoteHeader.js'
 import TakeANote from '../cmps/TakeANote.js'
+import Nav from '../cmps/Nav.js'
 
 export default {
   template: `
+ 
    <NoteHeader @setFilter="settingFilter" />
  
-   <TakeANote @changeNoteType="settingsNoteType"  :notes="notes" :note="note"/>
+   <section className="keep-app">
 
+<section className="left-nav">
+  <Nav/>
+</section>
 
+   <section className="keep-flex">
 
-  <section className="note-list">
-  <NoteList @set-note="settingsNote" :notes="filteredNotes" />
+<TakeANote @changeNoteType="settingsNoteType"  :notes="notes" :note="note"/>
+
+<section className="note-list">
+
+<NoteList @setNote="settingsNote" :notes="filteredNotes" />
 <RouterView @unset="unSetNote"  v-if="selectedNote"  :note="selectedNote" />
-  </section>
- 
+
+</section>
+
+
+</section>
+
+   </section>
+
+  
+
+
+
+
+
  
 `,
 
@@ -58,6 +79,8 @@ export default {
         this.note = noteService.createNoteList()
       } else if (type === 'text') {
         this.note = noteService.createNewNote()
+      } else {
+        this.note = noteService.createNoteImg()
       }
       console.log(this.note)
     },
@@ -81,6 +104,7 @@ export default {
   },
 
   components: {
+    Nav,
     TakeANote,
     NoteHeader,
     NoteList,

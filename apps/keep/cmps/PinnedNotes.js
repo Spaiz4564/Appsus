@@ -1,7 +1,7 @@
 export default {
   template: `
   <section className="pinned-notes container">
-    <h1>PINNED</h1>
+    <span class="others">PINNED</span>
 
   </section>
     

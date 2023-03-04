@@ -4,6 +4,7 @@ import { storageService } from '../../../services/async-storage.service.js'
 const note_KEY = 'noteDB'
 
 export const noteService = {
+  createNoteImg,
   createNoteList,
   saveNote,
   createNewNote,
@@ -37,11 +38,27 @@ function createNewNote() {
     type: 'NoteTxt',
     isPinned: false,
     style: {
-      backgroundColor: utilService.getColor(),
+      backgroundColor: getColor(),
     },
     info: {
       title: '',
       txt: '',
+    },
+  }
+}
+
+function createNoteImg() {
+  return {
+    id: '',
+    type: 'NoteImg',
+    isPinned: false,
+    info: {
+      url: 'https://source.unsplash.com/random/200x200?sig=1',
+      title: '',
+      txt: '',
+    },
+    style: {
+      backgroundColor: getColor(),
     },
   }
 }
@@ -52,7 +69,7 @@ function createNoteList() {
     type: 'NoteTodos',
     isPinned: false,
     style: {
-      backgroundColor: utilService.getColor(),
+      backgroundColor: getColor(),
     },
     info: {
       txt: '',
@@ -78,7 +95,7 @@ function _createNotes() {
         type: 'NoteTxt',
         isPinned: true,
         style: {
-          backgroundColor: utilService.getColor(),
+          backgroundColor: getColor(),
         },
         info: {
           title: 'Note title',
@@ -95,7 +112,7 @@ function _createNotes() {
           txt: 'Wow ahi',
         },
         style: {
-          backgroundColor: utilService.getColor(),
+          backgroundColor: getColor(),
         },
       },
       {
@@ -103,7 +120,7 @@ function _createNotes() {
         type: 'NoteTodos',
         isPinned: false,
         style: {
-          backgroundColor: utilService.getColor(),
+          backgroundColor: getColor(),
         },
         info: {
           txt: 'This is a note',
@@ -119,7 +136,7 @@ function _createNotes() {
         type: 'NoteTodos',
         isPinned: false,
         style: {
-          backgroundColor: utilService.getColor(),
+          backgroundColor: getColor(),
         },
         info: {
           txt: 'This is a note',
@@ -147,4 +164,23 @@ function query(filterBy = {}) {
     }
     return notes
   })
+}
+
+function getColor() {
+  var colors = [
+    '#f28b82',
+    '#fbbc04',
+    '#fff475',
+    '#ccff90',
+    '#a7ffeb',
+    '#cbf0f8',
+    '#aecbfa',
+    '#d7aefb',
+    '#fdcfe8',
+    '#e6c9a8',
+    '#e8eaed',
+    '#ffffff',
+  ]
+
+  return colors[Math.floor(Math.random() * colors.length)]
 }

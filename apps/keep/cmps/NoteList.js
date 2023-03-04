@@ -6,16 +6,17 @@ export default {
   props: ['notes'],
   template: `
 
-       <!-- <PinnedNotes /> -->
+       <PinnedNotes />
 
      <div class="container">
+      <span class="others">OTHERS</span>
 
      <section class="notes">
    
             <ul class="notes-list">
                 <li class="note" v-for="note in notes" :key="note.id">
             
-                    <notePreview @removeNote="removeNote"   @click="setSelectedNote(note)"  :note="note" />
+                    <notePreview @removeNote="removeNote"  @click="setSelectedNote(note)"  :note="note" />
             
                 </li>
             </ul>

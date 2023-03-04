@@ -39,7 +39,11 @@
 }
 
 .glass-icon {
-  top: 32%;
+  top: 25%;
   left: 29%;
   position: absolute;
+}
+
+.glass-icon svg {
+  opacity: 0.7;
 }

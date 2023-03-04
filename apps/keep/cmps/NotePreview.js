@@ -10,13 +10,11 @@ export default {
   template: `
    
         <section class="note-preview-section"  :style="bgColor"   @mouseout="showTools = false" @mouseover="showTools = true">
-        <div class="note-img-container">
-     
-      </div>
+        
       <RouterLink :to="'/noteIndex/Details/'+note.id">
-      <div class="note-preview-container">
+      <div :class="note.type ==='NoteImg' ? 'no-padding' : ''" class="note-preview-container">
 
-      <h2>{{ note.info.title }}</h2>
+     
             <NoteText v-if="note.type === 'NoteTxt'" :note="note"/>
             <NoteTypeList v-if="note.type === 'NoteTodos'"  :note="note"/>
             <NoteTypeImg v-if="note.type === 'NoteImg'" :note="note" />
@@ -24,10 +22,10 @@ export default {
       </div>
       </RouterLink>
       <div :class="opacity">
-      <div @click="onRemoveNote(note.id)"  className="icon" v-html="getSvg('trash')"></div>
+      <div @click.prevenet="onRemoveNote(note.id)"  className="icon" v-html="getSvg('trash')"></div>
       <div className="color">
       <input @change="setBg" v-model="note.style.backgroundColor" type="color" id="color" />
-      <i class="fa-solid fa-palette"></i>
+      <div class="icon" v-html="getSvg('colorPallet')"></div>
     
       </div>
       
