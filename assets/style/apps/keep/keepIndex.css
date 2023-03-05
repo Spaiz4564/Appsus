@@ -53,6 +53,7 @@
 }
 
 .note {
+  min-width: 238px;
   transition: all 0.2s;
   border-radius: 15px;
   display: flex;
@@ -97,13 +98,12 @@
 }
 
 .preview-tools {
-  position: relative;
   padding: 10px;
   transition: all 0.3s;
   opacity: 0;
   display: flex;
   align-items: center;
-  /* gap: 10px; */
+  gap: 2px;
 }
 
 .preview-tools > * {
@@ -115,6 +115,7 @@
 }
 
 .note-preview-section {
+  position: relative;
   border-radius: 8px;
   color: black;
 }
@@ -128,11 +129,16 @@
   line-height: 1rem;
 }
 
-.color input {
+.color input,
+.details-color input {
   cursor: pointer;
   position: relative;
   z-index: 2;
   opacity: 0;
+}
+
+.color {
+  max-width: 30px;
 }
 
 .keep-flex {
@@ -144,11 +150,19 @@
   display: flex;
 }
 
+.details-color {
+  max-width: 30px;
+}
+
 .color .icon {
   z-index: 1;
   position: absolute;
-  left: 45px;
+  left: 43px;
   bottom: 10px;
+}
+
+#color {
+  max-width: 30px;
 }
 
 .noOpacity {
@@ -170,6 +184,7 @@
 }
 
 .note-preview-container h4 {
+  font-family: 'googleLight';
   font-size: 15px;
   font-weight: bolder;
 }

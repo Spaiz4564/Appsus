@@ -4,20 +4,20 @@ import { svgService } from '../../../services/svg-service.js'
 import NoteText from '../cmps/NoteText.js'
 
 export default {
-  props: ['note'],
+  props: ['note', 'notes'],
   template: `
   <section :class="note.type ==='NoteImg' ? 'no-padding' : ''" :style="setBg" class="note-details">
 
 <div v-if="note.type !== 'NoteImg'" className="title-pin">
 <textarea spellcheck="false" style="resize: none;" v-model="note.info.title">{{ note.info.title }}</textarea>
-    <i class="fa-solid fa-thumbtack"></i>
+    <div v-html="getSvg('pin')" ></div>
 </div>
 
 <img v-if="note.type ==='NoteImg'" class="note-img" :src="note.info.url" alt="" />
-
+<iframe v-if="note.type === 'NoteVid'"  width="150" height="250" :src="note.info.url" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 <div v-if="note.type === 'NoteImg'" className="title-pin">
 <textarea  spellcheck="false" style="resize: none;" v-model="note.info.title">{{ note.info.title }}</textarea>
-    <i class="fa-solid fa-thumbtack"></i>
+    <div v-html="getSvg('pin')" ></div>
 </div>
 
 
@@ -34,7 +34,12 @@ export default {
 
     <div className="note-tools">
       <div class="note-tools-icons">
-    <div class="icon" v-html="getSvg('colorPallet')"></div>
+        <div @click.prevenet="onRemoveNote(note.id)" class="icon" v-html="getSvg('trash')"></div>
+        <div className="details-color">
+      <input @change="saveBg" v-model="note.style.backgroundColor" type="color" id="color" />
+      <div class="icon" v-html="getSvg('colorPallet')"></div>
+    </div>
+    <div @click="duplicateNote" class="icon" v-html="getSvg('duplicate')"></div>
     <div v-show="note.type==='NoteTodos'" @click="openEdit" class="icon" v-html="getSvg('editList')"></div>
   </div>
   
@@ -58,6 +63,28 @@ export default {
   },
 
   methods: {
+    onRemoveNote(noteId) {
+      // this.$emit('removeNote', noteId)
+      noteService.remove(noteId).then(() => {
+        const idx = this.notes.findIndex(note => note.id === noteId)
+        this.notes.splice(idx, 1)
+        this.closeModal()
+      })
+
+      console.log('Note Removed')
+    },
+
+    saveBg() {
+      noteService.save(this.note)
+      console.log('bg set')
+    },
+
+    duplicateNote() {
+      noteService.saveNote(this.note).then(note => {
+        this.notes.unshift(note)
+      })
+    },
+
     lineThrough(index) {
       console.log(this.$refs.listTodo[index].classList.toggle('line-through'))
       this.note.info.todos[index].isDone = !this.note.info.todos[index].isDone
@@ -67,6 +94,7 @@ export default {
     unSetNote() {
       noteService.save(this.note)
       this.$emit('unset')
+      this.closeModal()
     },
 
     getSvg(iconName) {
@@ -76,6 +104,13 @@ export default {
     openEdit() {
       this.showInput = !this.showInput
       console.log('editing')
+    },
+
+    closeModal() {
+      document.querySelector('body').style.overflow = ''
+      document.querySelector('.note-details').style.opacity = '0'
+      document.querySelector('.backdrop').style.opacity = '0'
+      document.querySelector('.backdrop').style.zIndex = '-1'
     },
 
     pushList() {

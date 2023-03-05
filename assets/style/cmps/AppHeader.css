@@ -7,9 +7,19 @@
 }
 
 @media (max-width: 720px) {
-  .app-header {
-    background-color: var(--clr3);
-    color: var(--secondary-clr2);
+  .container {
+    position: relative;
+    column-count: 2 !important;
+    column-gap: 0.5rem !important;
+    padding: 50px !important;
+  }
+
+  .note {
+    max-width: 100px;
+  }
+
+  .note:not(:first-of-type) {
+    margin: 0.3rem -3rem !important;
   }
 }
 

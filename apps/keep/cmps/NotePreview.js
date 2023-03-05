@@ -4,30 +4,33 @@ import { noteService } from '../services/note-service.js'
 import NoteText from './NoteText.js'
 import NoteTypeList from './NoteTypeList.js'
 import NoteTypeImg from './NoteTypeImg.js'
+import NoteTypeVideo from './NoteTypeVideo.js'
 
 export default {
-  props: ['note'],
+  props: ['note', 'notes'],
   template: `
    
         <section class="note-preview-section"  :style="bgColor"   @mouseout="showTools = false" @mouseover="showTools = true">
         
       <RouterLink :to="'/noteIndex/Details/'+note.id">
-      <div :class="note.type ==='NoteImg' ? 'no-padding' : ''" class="note-preview-container">
+      <div @click="test" :class="note.type ==='NoteImg' || note.type === 'NoteVid' ? 'no-padding' : ''" class="note-preview-container">
 
      
-            <NoteText v-if="note.type === 'NoteTxt'" :note="note"/>
+            <NoteText  v-if="note.type === 'NoteTxt'" :note="note"/>
             <NoteTypeList v-if="note.type === 'NoteTodos'"  :note="note"/>
             <NoteTypeImg v-if="note.type === 'NoteImg'" :note="note" />
+            <NoteTypeVideo v-if="note.type === 'NoteVid'" :note="note" /> 
 
       </div>
       </RouterLink>
       <div :class="opacity">
+      <div @click="pinNote" class="tag icon" v-html="getSvg('pin')"></div>
       <div @click.prevenet="onRemoveNote(note.id)"  className="icon" v-html="getSvg('trash')"></div>
       <div className="color">
-      <input @change="setBg" v-model="note.style.backgroundColor" type="color" id="color" />
+      <input  v-model="note.style.backgroundColor" type="color" id="color" />
       <div class="icon" v-html="getSvg('colorPallet')"></div>
-    
-      </div>
+    </div>
+    <div @click="duplicateNote" class="icon" v-html="getSvg('duplicate')"></div>
       
       </div>
 
@@ -39,10 +42,31 @@ export default {
   data() {
     return {
       showTools: false,
+      isSelected: false,
     }
   },
 
   methods: {
+    pinNote() {
+      this.note.isPinned = !this.note.isPinned
+    },
+
+    duplicateNote() {
+      noteService.saveNote(this.note).then(note => {
+        this.notes.unshift(note)
+      })
+    },
+
+    test() {
+      document.querySelector('body').style.overflow = 'hidden'
+      setTimeout(() => {
+        document.querySelector('.note-details').style.opacity = '1'
+      }, 300)
+      this.isSelected = true
+      document.querySelector('.backdrop').style.opacity = '0.6'
+      document.querySelector('.backdrop').style.zIndex = '1'
+    },
+
     getSvg(iconName) {
       return svgService.getSvg(iconName)
     },
@@ -50,11 +74,6 @@ export default {
     onRemoveNote(noteId) {
       console.log('removing note')
       this.$emit('removeNote', noteId)
-    },
-
-    setBg() {
-      noteService.save(this.note)
-      console.log('bg set')
     },
   },
 
@@ -80,6 +99,7 @@ export default {
   },
 
   components: {
+    NoteTypeVideo,
     NoteTypeImg,
     NoteTypeList,
     NoteText,

@@ -10,17 +10,19 @@ export default {
 
        <div className="title-tag">
            <input v-model="note.info.title" type="text" placeholder="Title" />
-           <i @click="pinNote" class="fa-solid fa-thumbtack"></i>
+           <div class="pinningNote" ref="pin" v-html="getSvg('pin')" @click="onPinNote"></div>
        </div>
 
-   <textarea  v-if="note.type !== 'NoteImg'" spellcheck="false" style="resize: none; overflow: hidden" v-model="note.info.txt" :placeholder="text"></textarea>
-   <div class="upload-an-img" v-if="note.type === 'NoteImg'" >Upload an image... <input class="img-input" v-if="this.note.type === 'NoteImg'" type="file" accept="image/jpeg" @change=uploadImage></div>
+   <textarea  v-if="note.type !== 'NoteImg' && note.type !== 'NoteVid'" spellcheck="false" style="resize: none; overflow: hidden" v-model="note.info.txt" :placeholder="text"></textarea>
+   <div class="upload-an-img" v-if="note.type === 'NoteImg'" >Upload an image... <input class="img-input" type="file" accept="image/jpeg" @change=uploadImage></div>
+   <input class="video-input" placeholder="Copy video url..." v-if="note.type === 'NoteVid'"  type="text" v-model="note.info.url">
 
    <div class="tool-tip-btns">
 
    <div class="note-type">
      <div class="icon" v-html="getSvg('textFormat')" ref="text"  @click="onChangeNoteType('text'); mark('text')" data-title="Text"></div>
    <div class="icon" v-html="getSvg('listDisplay')" ref="list" @click="onChangeNoteType('list'); mark('list')" data-title="List"></div>
+   <div class="icon" v-html="getSvg('YT')" ref="video" @click="onChangeNoteType('video'); mark('video'); mark('video')" data-title="Video"></div>
    <div class="icon" v-html="getSvg('img')" ref="img" @click="onChangeNoteType('img'); mark('list'); mark('img')" data-title="Image"></div>
    </div>
 
@@ -41,6 +43,11 @@ export default {
   },
 
   methods: {
+    onPinNote() {
+      this.note.isPinned = !this.note.isPinned
+      this.$refs.pin.classList.toggle('pressed')
+    },
+
     uploadImage(e) {
       const image = e.target.files[0]
       const reader = new FileReader()
@@ -52,7 +59,10 @@ export default {
     },
 
     onSaveNote() {
-      if (!this.note.info.txt && this.note.type !== 'NoteImg') return
+      if (this.note.type === 'NoteVid') {
+        this.note.info.url = this.note.info.url.split('watch?v=').join('embed/')
+        console.log(this.note.info)
+      }
       if (this.note.type === 'NoteTodos') {
         this.note.info.txt
           .split(',')
@@ -68,10 +78,6 @@ export default {
       return svgService.getSvg(iconName)
     },
 
-    pinNote() {
-      console.log('hello')
-    },
-
     onChangeNoteType(type) {
       this.$emit('changeNoteType', type)
     },
@@ -83,9 +89,11 @@ export default {
       } else if (type === 'text') {
         this.removeMarks()
         this.$refs.text.classList.add('pressed')
-      } else {
+      } else if (type === 'img') {
         this.removeMarks()
         this.$refs.img.classList.add('pressed')
+      } else {
+        this.$refs.video.classList.add('pressed')
       }
     },
 

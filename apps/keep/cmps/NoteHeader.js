@@ -5,10 +5,10 @@ export default {
   template: `
           <header class="app-header">
               <div className="logo-keep">
-                <div  v-html="getSvg('bars')" ></div>
+                <div style="padding-top:5px"  v-html="getSvg('bars')" ></div>
                 <img class="logo" src='../../../assets/style/apps/keep/imgs/keep.png' alt="" />
-            <h1>Keep</h1>
-            <div class="glass-icon" v-html="getSvg('search')" ></div>
+            <h1>Appsus</h1>
+            <div  class="glass-icon" v-html="getSvg('search')" ></div>
            <NoteFilter @filter="setFilterBy" />
             </div>
 

@@ -21,13 +21,14 @@ export default {
 
 <section className="note-list">
 
-<NoteList @setNote="settingsNote" :notes="filteredNotes" />
-<RouterView @unset="unSetNote"  v-if="selectedNote"  :note="selectedNote" />
+<NoteList @setNote="settingsNote" :note="note" :notes="filteredNotes" />
+<RouterView @unset="unSetNote"  v-if="selectedNote" :notes="notes" :note="selectedNote" />
 
 </section>
 
 
 </section>
+<RouterLink to="/NoteIndex"><div class="backdrop" @click="closeModal()"></div></RouterLink>
 
    </section>
 
@@ -59,6 +60,13 @@ export default {
   },
 
   methods: {
+    closeModal() {
+      document.querySelector('body').style.overflow = ''
+      document.querySelector('.note-details').style.opacity = '0'
+      document.querySelector('.backdrop').style.opacity = '0'
+      document.querySelector('.backdrop').style.zIndex = '-1'
+    },
+
     unSetNote() {
       this.selectedNote = null
       console.log('note is null')
@@ -79,8 +87,10 @@ export default {
         this.note = noteService.createNoteList()
       } else if (type === 'text') {
         this.note = noteService.createNewNote()
-      } else {
+      } else if (type === 'img') {
         this.note = noteService.createNoteImg()
+      } else {
+        this.note = noteService.createNoteVid()
       }
       console.log(this.note)
     },
