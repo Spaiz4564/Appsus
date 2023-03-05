@@ -6,7 +6,7 @@
 }
 
 .welcome-container {
-  padding: 8rem;
+  padding: 8rem 8rem 0rem 8rem;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -14,7 +14,6 @@
 }
 
 .home-page {
-  padding: 50px;
   margin-top: 80px;
   display: flex;
   flex-wrap: wrap;
