@@ -106,8 +106,12 @@ export default {
       if (!this.filterBy.text) return this.notes
 
       const searchStr = this.filterBy.text.toLowerCase()
+      const searchStrTitle = this.filterBy.title.toLowerCase()
       const filteredNotes = this.notes.filter(note => {
-        return note.info.txt.toLowerCase().includes(searchStr)
+        return (
+          note.info.txt.toLowerCase().includes(searchStr) ||
+          note.info.title.toLowerCase().includes(searchStrTitle)
+        )
       })
       return filteredNotes
     },

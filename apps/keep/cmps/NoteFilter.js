@@ -3,6 +3,7 @@ export default {
     
     <input
      v-model="filterBy.text"
+     v-model="filterBy.title"
      @input="filter" 
       class="notes-filter"
        type="text"
