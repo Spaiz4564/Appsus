@@ -15,7 +15,7 @@ export default {
 
    <textarea  v-if="note.type !== 'NoteImg' && note.type !== 'NoteVid'" spellcheck="false" style="resize: none; overflow: hidden" v-model="note.info.txt" :placeholder="text"></textarea>
    <div class="upload-an-img" v-if="note.type === 'NoteImg'" >Upload an image... <input class="img-input" type="file" accept="image/jpeg" @change=uploadImage></div>
-   <input class="video-input" placeholder="Copy video url..." v-if="note.type === 'NoteVid'"  type="text" v-model="note.info.url">
+   <input class="video-input" placeholder="Copy YouTube embed url" v-if="note.type === 'NoteVid'"  type="text" v-model="note.info.url">
 
    <div class="tool-tip-btns">
 

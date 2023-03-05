@@ -29,6 +29,11 @@
   list-style-type: none;
 }
 
+.video-input::placeholder {
+  font-size: 14px !important;
+  font-weight: 200 !important;
+}
+
 .note-type {
   display: flex;
   gap: 10px;
