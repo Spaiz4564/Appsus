@@ -38,6 +38,16 @@
   font-size: 22px;
 }
 
+.notes-list {
+  margin: -0.05rem 0;
+  height: fit-content;
+}
+
+.notes-list-pinned {
+  margin: -0.05rem 0;
+  height: fit-content;
+}
+
 .glass-icon {
   top: 25%;
   left: 31%;

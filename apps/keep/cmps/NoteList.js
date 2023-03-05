@@ -8,7 +8,7 @@ export default {
 
   <section className="pinned-notes container">
     <span class="pinned">PINNED</span>
-  <ul class="notes-list">
+  <ul class="notes-list-pinned">
                 <li v-show="note.isPinned" class="note" v-for="note in notes" :key="note.id">
             
                     <notePreview  v-if="note.isPinned"  @removeNote="removeNote"  @click="setSelectedNote(note)"  :notes="notes" :note="note" />
