@@ -6,69 +6,26 @@ export const mailService = {
   query,
   remove,
   get,
-  save,
   getEmptyMail,
   updateIsRead,
   removeToTrash,
-  updateIsStar,
+  getMailById,
+  save,
+  sendMail,
+  // addMail,
+  saveToDraft,
+  updateStarMail,
+}
+
+const gLoggedinUser = {
+  email: 'ylcN@appsus.com',
+  fullname: 'Mahatma Appsus',
 }
 
 _createMails()
-const criteria = {
-  status: 'inbox/sent/trash/draft',
-  txt: 'puki', // no need to support complex text search
-  isRead: true, // (optional property, if missing: show all)
-  isStared: true, // (optional property, if missing: show all)
-  lables: ['important', 'romantic'], // has any of the labels
-}
 
-function query(criteria = {}) {
-  const mails = utilService.loadFromStorage(MAIL_KEY)
-  if (!mails || !mails.length) return Promise.resolve([])
-  const { status, txt, isRead, isStared, labels } = criteria
-  let filteredMails = mails.filter((mail) => {
-    if (status === 'inbox') {
-      return !mail.isTrash && !mail.isDraft
-    } else if (status === 'sent') {
-      return mail.isSent
-    } else if (status === 'trash') {
-      return mail.isTrash
-    } else if (status === 'draft') {
-      return mail.isDraft
-    } else if (status === 'starred') {
-      return mail.isStared
-    }
-    return true
-  })
-  if (txt) {
-    filteredMails = filteredMails.filter((mail) => {
-      return mail.subject.includes(txt) || mail.body.includes(txt)
-    })
-  }
-  if (isRead) {
-    filteredMails = filteredMails.filter((mail) => {
-      return mail.isRead
-    })
-  }
-  if (isStared) {
-    filteredMails = filteredMails.filter((mail) => {
-      return mail.isStared
-    })
-  }
-  if (labels) {
-    filteredMails = filteredMails.filter((mail) => {
-      return mail.labels.some((label) => labels.includes(label))
-    })
-  }
-  return Promise.resolve(filteredMails)
-}
-
-function save(mail) {
-  if (mail.id) {
-    return storageService.put(MAIL_KEY, mail)
-  } else {
-    return storageService.post(MAIL_KEY, mail)
-  }
+function query() {
+  return storageService.query(MAIL_KEY)
 }
 
 function remove(mailId) {
@@ -82,10 +39,11 @@ function getEmptyMail(from) {
     body: '',
     isRead: false,
     sentAt: Date.now(),
+    isSent: false,
     removedAt: null,
     isTrash: false,
     from,
-    to: 'user@appsus.com',
+    to: gLoggedinUser.email,
     isStared: false,
     labels: [],
   }
@@ -99,9 +57,12 @@ function _createMail(from, sentAt) {
   mail.sentAt = sentAt
   mail.from = from
   mail.isTrash = false
+  mail.isSent = false
+  mail.labels = []
+
   mail.isRead = false
   mail.isStared = false
-  mail.to = 'user@appsus.com'
+  mail.to = gLoggedinUser.email
   return mail
 }
 
@@ -138,20 +99,21 @@ function _createMails() {
 }
 
 function removeToTrash(mailId) {
-  const mail = getMailById(mailId)
-  mail.removedAt = Date.now()
-  mail.id = mailId
-  mail.isTrash = true
-  save(mail)
+  const currMail = getMailById(mailId)
+  if (currMail.isTrash) {
+    remove(mailId)
+    return
+  }
+  currMail.isTrash = true
+  currMail.removedAt = Date.now()
+  save(currMail)
 }
 
 function get(mailId) {
-  console.log('mailId', mailId)
   return storageService.get(MAIL_KEY, mailId)
 }
 
 function updateIsRead(mailId) {
-  console.log('mailId', mailId)
   const currMail = getMailById(mailId)
   currMail.isRead = true
   save(currMail)
@@ -163,9 +125,40 @@ function getMailById(mailId) {
   return mail
 }
 
-function updateIsStar(mailId) {
-  const currMail = getMailById(mailId)
-  console.log('currMail', currMail)
-  currMail.isStared = !currMail.isStared
-  save(currMail)
+function save(mail) {
+  if (mail.id) return storageService.put(MAIL_KEY, mail)
+  else return storageService.post(MAIL_KEY, mail)
+}
+
+function sendMail(mail) {
+  mail.isSent = true
+  mail.isDraft = false
+  mail.isTrash = false
+  mail.isRead = false
+  mail.isStared = false
+  mail.from = gLoggedinUser.email
+  mail.sentAt = Date.now()
+  save(mail)
+}
+
+function saveToDraft(mail) {
+  mail.isDraft = true
+  mail.isTrash = false
+  mail.isRead = false
+  mail.isStared = false
+  mail.from = gLoggedinUser.email
+  mail.sentAt = Date.now()
+  save(mail)
+}
+
+function updateStarMail(mailId) {
+  const mail = getMailById(mailId)
+  mail.isStared = true
+  save(mail)
+}
+
+function addTag(mailId, tag) {
+  const mail = getMailById(mailId)
+  mail.labels.push(tag)
+  save(mail)
 }

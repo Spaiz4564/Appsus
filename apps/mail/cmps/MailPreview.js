@@ -1,42 +1,64 @@
 import LongText from '../../../cmps/LongTxt.js'
+import { eventBusService } from '../../../services/event-bus.service.js'
+import { svgService } from '../../../services/svg-service.js'
+import { mailService } from '../services/mail.service.js'
 
 export default {
   props: ['mail'],
   template: `
 
-    <article class="mail-preview" @click="mailSelected(mail.id)">
+<article class="mail-preview" @click="renderDetails(mail.id)" :class="read">
       <div class="mail-header">
-        <i v-if="mail.isStared" class="fas fa-star" @click.stop="isStar"></i>
-        <i v-else class="far fa-star" @click.stop="isStar"></i>
-        <h4 :class="read"@click="changeColor()">{{mail.from}}</h4>
+        <i v-if="mail.isStared" className="icon" v-html="getMailSvg('starFill')" @click.stop="isStar"></i>
+        <i v-else  className="icon" v-html="getMailSvg('star')" @click.stop="isStar"></i> 
+        <h4 >{{mail.from}}</h4>
       </div>
-      
+      <h4 class="subject-mail"> {{mail.subject}}</h4>
       <div class="mail-content">
-        <h4 @click="changeColor()":class="read">{{mail.subject}}</h4>
-        <LongText :txt="mail.body" :length="40" class="mail-body">
+        <LongText :txt="mail.body" :length="150" class="mail-body">
           </LongText>
         </div>
+        <div class="mail-footer">
+          <i className="icon" v-html="getMailSvg('trash')" @click.stop="deleteMail(mail.id)"></i>
         <h5 class="mail-date">{{formatDate}}</h5>
-    </article>
+        </div>
+      </article>
     `,
-  data() {
-    return {
-      read: '',
-    }
-  },
+
   components: {
     LongText,
   },
+
   methods: {
     mailSelected(mailId) {
+      this.mail.isRead = true
+      this.$router.push(`/mail/details/${mailId}`)
       this.$emit('selected', mailId)
     },
     isStar() {
-      this.$emit('starred', this.mail)
+      this.mail.isStared = !this.mail.isStared
+      mailService.save(this.mail)
     },
-    changeColor() {
-      this.read = 'read'
-      console.log('read', this.mail)
+
+    renderDetails(mailId) {
+      const currMail = this.mail
+      if (currMail.isDraft) {
+        this.$router.push(`/mail/compose/${mailId}`)
+      } else {
+        this.mailSelected(mailId)
+      }
+    },
+    getMailSvg(iconName) {
+      return svgService.getMailSvg(iconName)
+    },
+    deleteMail(mailId) {
+      this.mail.isTrash = true
+      mailService.removeToTrash(mailId)
+      this.$emit('deleted', mailId)
+      eventBusService.emit('show-msg', {
+        txt: 'Mail Removed!',
+        type: 'success',
+      })
     },
   },
   computed: {
@@ -68,7 +90,6 @@ export default {
       } else {
         //if its more than year ago show the year
         const option = {
-          year: 'numeric',
           month: 'short',
           day: 'numeric',
         }
@@ -77,6 +98,10 @@ export default {
         )
         return formattedDate
       }
+    },
+    read() {
+      if (this.mail.isRead) return 'read'
+      else return ''
     },
   },
 }

@@ -1,9 +1,9 @@
 /* we need to give grid layout */
 
 .mail-index {
+  font-family: 'googleRegular', sans-serif;
   display: grid;
-  border: 1px solid #ccc;
-  /* height: 100vh; */
+  height: 90vh;
   grid-template-columns: 200px 1fr 1fr;
   grid-template-rows: 0.3fr 1.5fr 1fr;
   grid-template-areas:
@@ -13,33 +13,36 @@
 }
 
 .email-filter {
-  border: 1px solid #ccc;
   grid-area: search;
 }
 
 .mail-folders {
-  /* grid-area: nav-bar; */
-  border: 1px solid #ccc;
+  font-family: 'googleRegular', sans-serif;
   grid-area: 2 / 1 / 4 / 2;
-}
-
-.mail-folders ul {
-  font-family: 'Roboto', sans-serif;
+  height: 86vh;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  list-style: none;
-  padding: 0.5em;
-}
-
-.mail-folders ul li {
-  cursor: pointer;
-  padding: 0.5em;
-  margin: 0.5em;
+  gap: 1em;
+  padding: 1.5em;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  line-height: 20px;
+  color: #001d35;
+  background: #f3f6fc;
 }
 
 .mail-folders span {
   margin-left: 10px;
 }
-.mail-folders ul li:hover {
-  background-color: #ccc;
+
+.folder-preview-container {
+  display: flex;
+  align-items: center;
+  height: 30px;
+}
+
+.folder-preview-container:hover {
+  border-radius: 5px;
+  background: #e8e8e8;
 }

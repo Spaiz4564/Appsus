@@ -5,6 +5,7 @@ import NoteDetails from './apps/keep/pages/NoteDetails.js'
 import MailDetails from './apps/mail/pages/MailDetails.js'
 import EmailTrash from './apps/mail/cmps/EmailTrash.js'
 import NoteIndex from './apps/keep/pages/NoteIndex.js'
+import MailCompose from './apps/mail/pages/MailCompose.js'
 
 const { createRouter, createWebHashHistory } = VueRouter
 
@@ -26,9 +27,12 @@ const routerOptions = {
       component: MailIndex,
       children: [
         {
-          path: 'trash',
-          name: 'TrashEmail',
-          component: EmailTrash,
+          path: 'details/:mailId?',
+          component: MailDetails,
+        },
+        {
+          path: 'compose/:mailId?',
+          component: MailCompose,
         },
       ],
     },

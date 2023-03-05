@@ -4,5 +4,6 @@ export default {
   template: `
         <section class="mail-trash">
             <h1>Trash</h1>
+
 `,
 }
