@@ -72,3 +72,7 @@
 .mail-footer svg:hover {
   fill: #fbbc05;
 }
+
+.envelope:hover {
+  color: #202124;
+}

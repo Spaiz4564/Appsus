@@ -19,7 +19,7 @@ export default {
           </LongText>
         </div>
         <div class="mail-footer">
-          <i class="fa-sharp fa-solid fa-envelope-open" @click.stop="markAsRead(mail.id)"></i>
+          <i class="envelope fa-sharp fa-solid fa-envelope-open" @click.stop="markAsRead(mail.id)"></i>
           <i className="icon" v-html="getMailSvg('trash')" @click.stop="deleteMail(mail.id)"></i>
         <h5 class="mail-date">{{formatDate}}</h5>
         </div>
