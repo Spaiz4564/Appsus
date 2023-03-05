@@ -7,7 +7,7 @@ export default {
               <div className="logo-keep">
                 <div style="padding-top:5px"  v-html="getSvg('bars')" ></div>
                 <img class="logo" src='../../../assets/style/apps/keep/imgs/keep.png' alt="" />
-            <h1>Appsus</h1>
+            <h1>Appsu</h1>
             <div  class="glass-icon" v-html="getSvg('search')" ></div>
            <NoteFilter @filter="setFilterBy" />
             </div>
