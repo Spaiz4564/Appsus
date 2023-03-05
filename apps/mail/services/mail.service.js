@@ -49,19 +49,19 @@ function getEmptyMail(from) {
   }
 }
 
-function _createMail(from, sentAt) {
+function _createMail(from, sentAt, isDraft, isSent, isTrash, isRead, isStared) {
   const mail = getEmptyMail(from)
   mail.id = utilService.makeId()
   mail.subject = utilService.makeLorem(5)
   mail.body = utilService.makeLorem(100)
   mail.sentAt = sentAt
   mail.from = from
-  mail.isTrash = false
-  mail.isSent = false
+  mail.isTrash = isTrash
+  mail.isSent = isSent
   mail.labels = []
-
-  mail.isRead = false
-  mail.isStared = false
+  mail.isRead = isRead
+  mail.isStared = isStared
+  mail.isDraft = isDraft
   mail.to = gLoggedinUser.email
   return mail
 }
@@ -87,12 +87,136 @@ function _createMails() {
     const lastYear = new Date(today)
     lastYear.setDate(lastYear.getDate() - 365)
 
-    mails.push(_createMail('Guy@appsus.com', today))
-    mails.push(_createMail('Lior@appsus.com', today))
-    mails.push(_createMail('Ilan@appsus.com', today))
-    mails.push(_createMail('TalTheBest@appsus.com', lastWeek))
-    mails.push(_createMail('Bar@appsus.com', lastMonth))
-    mails.push(_createMail('Dor@appsus.com', lastYear))
+    mails.push(
+      _createMail('Guy@appsus.com', today, false, false, false, true, true)
+    )
+    mails.push(
+      _createMail('Lior@appsus.com', today, false, false, false, true, false)
+    )
+    mails.push(
+      _createMail('Ilan@appsus.com', today, false, false, true, true, false)
+    )
+    mails.push(
+      _createMail('Tal@appsus.com', lastWeek, false, true, true, false, false)
+    )
+    mails.push(
+      _createMail('Bar@appsus.com', lastMonth, false, false, true, false, false)
+    )
+    mails.push(
+      _createMail('Dor@appsus.com', lastYear, false, false, false, false, true)
+    )
+    mails.push(
+      _createMail('Doda@appsus.com', lastYear, false, false, false, true, true)
+    )
+    mails.push(
+      _createMail('Mom@appsus.com', lastYear, false, false, false, false, true)
+    )
+    mails.push(
+      _createMail('Dad@appsus.com', lastYear, false, false, true, true, true)
+    )
+    mails.push(
+      _createMail('Bar@appsus.com', lastYear, true, false, false, true, true)
+    )
+    mails.push(
+      _createMail('Nevo@appsus.com', lastYear, false, false, true, false, true)
+    )
+    mails.push(
+      _createMail('Yaniv@appsus.com', lastYear, false, false, true, true, true)
+    )
+    mails.push(
+      _createMail('Gal@appsus.com', lastYear, false, true, false, true, false)
+    )
+    mails.push(
+      _createMail('Eran@appsus.com', lastYear, true, true, false, false, false)
+    )
+    mails.push(
+      _createMail(
+        'Momi@appsus.com',
+        lastYear,
+        false,
+        false,
+        false,
+        false,
+        false
+      )
+    )
+    mails.push(
+      _createMail(
+        'Muki@appsus.com',
+        lastYear,
+        false,
+        false,
+        false,
+        false,
+        false
+      )
+    )
+    mails.push(
+      _createMail(
+        'Pukoi@appsus.com',
+        lastYear,
+        false,
+        false,
+        false,
+        false,
+        false
+      )
+    )
+    mails.push(
+      _createMail(
+        'Kuki@appsus.com',
+        lastYear,
+        false,
+        false,
+        false,
+        false,
+        false
+      )
+    )
+    mails.push(
+      _createMail(
+        'Shuki@appsus.com',
+        lastYear,
+        false,
+        false,
+        false,
+        false,
+        false
+      )
+    )
+    mails.push(
+      _createMail(
+        'Zuki@appsus.com',
+        lastYear,
+        false,
+        false,
+        false,
+        false,
+        false
+      )
+    )
+    mails.push(
+      _createMail(
+        'Luki@appsus.com',
+        lastYear,
+        false,
+        false,
+        false,
+        false,
+        false
+      )
+    )
+    mails.push(
+      _createMail(
+        'Pupo@appsus.com',
+        lastYear,
+        false,
+        false,
+        false,
+        false,
+        false
+      )
+    )
 
     utilService.saveToStorage(MAIL_KEY, mails)
   }
