@@ -1,7 +1,7 @@
 export default {
   template: `
         <header class="app-header">
-            <RouterLink to="/"><h1>AppSus</h1></RouterLink>
+            <RouterLink to="/"><h1>APPSUS</h1></RouterLink>
             
             <nav>
                 <router-link to="/noteIndex"><img class="logo" src='././assets/style/apps/keep/imgs/keep.png' alt="" /></router-link>
