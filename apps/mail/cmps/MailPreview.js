@@ -15,10 +15,11 @@ export default {
       </div>
       <h4 class="subject-mail"> {{mail.subject}}</h4>
       <div class="mail-content">
-        <LongText :txt="mail.body" :length="150" class="mail-body">
+        <LongText :txt="mail.body" :length="80" class="mail-body">
           </LongText>
         </div>
         <div class="mail-footer">
+          <i class="fa-sharp fa-solid fa-envelope-open" @click.stop="markAsRead(mail.id)"></i>
           <i className="icon" v-html="getMailSvg('trash')" @click.stop="deleteMail(mail.id)"></i>
         <h5 class="mail-date">{{formatDate}}</h5>
         </div>
@@ -59,6 +60,10 @@ export default {
         txt: 'Mail Removed!',
         type: 'success',
       })
+    },
+    markAsRead(mailId) {
+      this.mail.isRead = !this.mail.isRead
+      mailService.save(this.mail)
     },
   },
   computed: {

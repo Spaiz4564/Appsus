@@ -41,6 +41,8 @@
 
 .read {
   font-family: 'googleLight', sans-serif;
-  color: #ddd5d581;
+  color: #29272781;
+  opacity: 0.5;
+  fill-opacity: 0.5;
   background: #f3f6fc;
 }

@@ -14,6 +14,8 @@ export default {
 
             
             <router-link to="/">Home</router-link> 
+            <router-link to="/mail"><img class="logo" src='../../../assets/style/apps/mail/imgs/mail.png' alt="" /></router-link>
+            
             <!-- <nav>
                   <router-link to="/about">About</router-link>
               </nav> -->
