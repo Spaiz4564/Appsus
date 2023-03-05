@@ -68,6 +68,10 @@ iframe {
   padding: 0.85em;
 }
 
+.note-todos li {
+  cursor: pointer;
+}
+
 [contenteditable] {
   outline: 0px solid transparent;
 }
