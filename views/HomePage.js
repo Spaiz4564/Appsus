@@ -14,7 +14,7 @@ export default {
           
             </div>
             <div class="welcome-img-container">
-IMAGE
+   <img src="./home-img.png" alt="" />
             </div>
            
         </section>
