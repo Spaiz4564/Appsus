@@ -5,9 +5,11 @@ import NoteText from './NoteText.js'
 import NoteTypeList from './NoteTypeList.js'
 import NoteTypeImg from './NoteTypeImg.js'
 import NoteTypeVideo from './NoteTypeVideo.js'
+import { utilService } from '../../../services/util.service.js'
 
 export default {
   props: ['note', 'notes'],
+  emits: ['unSetting'],
   template: `
    
         <section class="note-preview-section"  :style="bgColor"   @mouseout="showTools = false" @mouseover="showTools = true">
@@ -52,7 +54,10 @@ export default {
     },
 
     duplicateNote() {
-      noteService.saveNote(this.note).then(note => {
+      this.$emit('unSetting', this.note)
+      const copy = JSON.parse(JSON.stringify(this.note))
+      copy.id = utilService.makeId()
+      noteService.saveNote(copy).then(note => {
         this.notes.unshift(note)
       })
     },

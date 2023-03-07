@@ -21,7 +21,7 @@ export default {
 
 <section className="note-list">
 
-<NoteList @setNote="settingsNote" :note="note" :notes="filteredNotes" />
+<NoteList @unSetFinal="unSettingFinal"  @setNote="settingsNote" :note="note" :notes="filteredNotes" />
 <RouterView @unset="unSetNote"  v-if="selectedNote" :notes="notes" :note="selectedNote" />
 
 </section>
@@ -60,6 +60,11 @@ export default {
   },
 
   methods: {
+    unSettingFinal() {
+      // this.unSetNote()
+      // this.note = null
+    },
+
     closeModal() {
       document.querySelector('body').style.overflow = ''
       document.querySelector('.note-details').style.opacity = '0'

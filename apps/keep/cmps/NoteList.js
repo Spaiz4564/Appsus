@@ -4,6 +4,7 @@ import PinnedNotes from '../cmps/PinnedNotes.js'
 
 export default {
   props: ['notes', 'note'],
+  emits: ['setNote', 'unSetFinal'],
   template: `
 
   <section className="pinned-notes container">
@@ -11,7 +12,7 @@ export default {
   <ul class="notes-list-pinned">
                 <li v-show="note.isPinned" class="note" v-for="note in notes" :key="note.id">
             
-                    <notePreview  v-if="note.isPinned"  @removeNote="removeNote"  @click="setSelectedNote(note)"  :notes="notes" :note="note" />
+                    <notePreview @unSetting="unsettingsNote"  v-if="note.isPinned"  @removeNote="removeNote"  @click="setSelectedNote(note)"  :notes="notes" :note="note" />
             
                 </li>
             </ul>
@@ -27,7 +28,7 @@ export default {
             <ul class="notes-list">
                 <li v-show="!note.isPinned"  class="note" v-for="note in notes" :key="note.id">
             
-                    <notePreview  v-if="!note.isPinned" @removeNote="removeNote"  @click="setSelectedNote(note)" :notes="notes" :note="note" />
+                    <notePreview @unSetting="unsettingsNote"  v-if="!note.isPinned"   @click="setSelectedNote(note)" :notes="notes" :note="note" />
             
                 </li>
             </ul>
@@ -38,7 +39,12 @@ export default {
     `,
 
   methods: {
+    unsettingsNote(note) {
+      this.$emit('unSetFinal', note)
+    },
+
     setSelectedNote(note) {
+      console.log(note)
       this.$emit('setNote', note)
     },
     removeNote(noteId) {
