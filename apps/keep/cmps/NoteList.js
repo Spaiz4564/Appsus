@@ -28,7 +28,7 @@ export default {
             <ul class="notes-list">
                 <li v-show="!note.isPinned"  class="note" v-for="note in notes" :key="note.id">
             
-                    <notePreview @unSetting="unsettingsNote"  v-if="!note.isPinned"   @click="setSelectedNote(note)" :notes="notes" :note="note" />
+                    <notePreview @unSetting="unsettingsNote"  v-if="!note.isPinned" @removeNote="removeNote" @click="setSelectedNote(note)" :notes="notes" :note="note" />
             
                 </li>
             </ul>
