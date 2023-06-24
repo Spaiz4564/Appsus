@@ -5,7 +5,7 @@ export default {
   template: `
           <header class="app-header">
               <div className="logo-keep">
-                <div style="padding-top:5px"  v-html="getSvg('bars')" ></div>
+                <div class='burger' style="padding-top:5px"  v-html="getSvg('bars')" ></div>
                 <img class="logo" src='././assets/style/apps/keep/imgs/keep.png' alt="" />
                 <RouterLink to="/"><h1>Appsus</h1></RouterLink>
            

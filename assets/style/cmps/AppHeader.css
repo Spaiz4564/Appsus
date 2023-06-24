@@ -19,7 +19,7 @@
   }
 
   .note:not(:first-of-type) {
-    margin: 0.3rem -3rem !important;
+    /* margin: 0.3rem -3rem !important; */
   }
 }
 

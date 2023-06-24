@@ -35,3 +35,4 @@
 /* Media Queries */
 
 @import '../style/mediaQueries/homePageMq.css';
+@import '../style/apps/keep/mediaQueries/keepMq.css';
