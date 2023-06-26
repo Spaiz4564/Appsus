@@ -20,6 +20,7 @@
 @import 'apps/mail/EmailFilter.css';
 @import 'apps/mail/EmailCompose.css';
 @import 'apps/mail/EmailDetails.css';
+@import 'apps/mail/MobileHamburger.css';
 @import 'apps/mail/MediaQueries.css';
 
 /* KEEP */
