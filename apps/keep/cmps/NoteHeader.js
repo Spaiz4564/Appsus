@@ -14,7 +14,7 @@ export default {
            <NoteFilter @filter="setFilterBy" />
             </div>
 
-           <img @click="openModal" class="apps-icon" src="../assets/img/apps-icon.png" alt="" />
+           <img @click="openModal" class="apps-icon" src="./assets/img/apps-icon.png" alt="" />
            <AppsModal v-show="showModal" />
             
           </header>
